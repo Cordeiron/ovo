@@ -129,7 +129,7 @@ export function getClientIp(req: ApiRequest): string {
   return req.ip || req.socket?.remoteAddress || 'unknown';
 }
 
-export function isAuthorizedRequest(req: ApiRequest): { ok: true } | { ok: false; error: string } {
+export function isAuthorizedRequest(req: ApiRequest): { ok: boolean; error?: string } {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return { ok: false, error: 'Acesso exclusivo da Rebeca. Confirme primeiro!' };
@@ -535,7 +535,7 @@ export async function handleGetBundle(req: ApiRequest, res: ServerResponse): Pro
 
   const auth = isAuthorizedRequest(req);
   if (!auth.ok) {
-    sendJson(res, 401, { error: auth.error });
+    sendJson(res, 401, { error: auth.error || 'Não autorizado.' });
     return;
   }
 
@@ -545,7 +545,7 @@ export async function handleGetBundle(req: ApiRequest, res: ServerResponse): Pro
 export async function handleScores(req: ApiRequest, res: ServerResponse): Promise<void> {
   const auth = isAuthorizedRequest(req);
   if (!auth.ok) {
-    sendJson(res, 401, { error: auth.error });
+    sendJson(res, 401, { error: auth.error || 'Não autorizado.' });
     return;
   }
 
