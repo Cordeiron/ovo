@@ -2,5 +2,7 @@
   "name": "Rebeca, Cuida do Meu Ovo!",
   "description": "Um jogo interativo personalizado e caótico onde a Rebeca precisa proteger um ovo de gatos, cachorros, galinhas e surpresas absurdas.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
