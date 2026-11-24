@@ -39,6 +39,7 @@ export default function App() {
       ]);
 
       if (bundleRes.status === 401 || scoresRes.status === 401) {
+        setBundleError('Sessão expirada ou não validada pelo servidor. Clique em SOU A REBECA ❤️ novamente.');
         setAuthToken(null);
         setScreen('GATE');
         return;

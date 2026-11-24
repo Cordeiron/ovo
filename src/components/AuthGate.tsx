@@ -23,10 +23,22 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onAuthenticated }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ confirmedAsRebeca: true }),
       });
-      const data = (await res.json()) as { token?: string; error?: string };
+
+      const rawText = await res.text();
+      let data: { token?: string; error?: string } = {};
+      if (rawText) {
+        try {
+          data = JSON.parse(rawText) as { token?: string; error?: string };
+        } catch {
+          // Non-JSON server response (e.g., 404/500 proxy page)
+        }
+      }
 
       if (!res.ok || !data.token) {
-        setErrorMsg(data.error || 'Não foi possível liberar a missão agora.');
+        setErrorMsg(
+          data.error ||
+            `Não foi possível liberar a missão agora (erro ${res.status}).`
+        );
         soundEngine.playHurt();
         setSubmitting(false);
         return;

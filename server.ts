@@ -1,7 +1,7 @@
 import path from 'node:path';
 import dotenv from 'dotenv';
 import express, { Request, Response } from 'express';
-import { handleConfirmRebeca, handleGetBundle, handleScores } from './lib/rebecaCore';
+import { handleConfirmRebeca, handleGetBundle, handleScores } from './api/_lib/rebecaCore.js';
 
 dotenv.config();
 
